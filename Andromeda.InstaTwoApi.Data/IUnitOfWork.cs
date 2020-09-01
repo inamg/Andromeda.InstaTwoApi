@@ -9,6 +9,6 @@ namespace Andromeda.InstaTwoApi.Data
         IUserRepository UserRepository { get; }
         IImageRepository ImageRepository { get; }
 
-        Task<int> SaveAsync();
+        int Save();
     }
 }

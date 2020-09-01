@@ -13,11 +13,11 @@ namespace Andromeda.InstaTwoApi.Data.Repositories
             _instaContext = instaContext;
         }
 
-        public async Task<TEntity> GetById(int id)
+        public TEntity GetById(int id)
         {
             try
             {
-                return await _instaContext.FindAsync<TEntity>(id);
+                return _instaContext.Find<TEntity>(id);
             }
             catch (Exception)
             {
@@ -37,17 +37,17 @@ namespace Andromeda.InstaTwoApi.Data.Repositories
             }
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             if (entity == null)
             {
-                throw new ArgumentNullException($"{nameof(AddAsync)} entity must not be null");
+                throw new ArgumentNullException($"{nameof(Add)} entity must not be null");
             }
 
             try
             {
-                await _instaContext.AddAsync(entity);
-                await _instaContext.SaveChangesAsync();
+                 _instaContext.Add(entity);
+                 _instaContext.SaveChanges();
 
                 return entity;
             }
@@ -61,7 +61,7 @@ namespace Andromeda.InstaTwoApi.Data.Repositories
         {
             if (entity == null)
             {
-                throw new ArgumentNullException($"{nameof(AddAsync)} entity must not be null");
+                throw new ArgumentNullException($"{nameof(UpdateAsync)} entity must not be null");
             }
 
             try

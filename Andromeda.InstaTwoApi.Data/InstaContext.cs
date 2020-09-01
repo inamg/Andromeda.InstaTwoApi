@@ -15,7 +15,7 @@ namespace Andromeda.InstaTwoApi.Data
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=INAMGULLEA3D;Database=KenticoAbc;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ImageDb;Trusted_Connection=True;");
                 
             base.OnConfiguring(optionsBuilder);
         }

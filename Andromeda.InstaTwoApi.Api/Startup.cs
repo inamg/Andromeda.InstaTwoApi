@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Andromeda.InstaTwoApi.Api.Infrastructure.Profiles;
 using Andromeda.InstaTwoApi.Api.Services;
 using Andromeda.InstaTwoApi.Data;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,12 @@ namespace Andromeda.InstaTwoApi.Api
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IImageService, ImagesService>();
             services.AddTransient<IImageFileManager, LocalFileManager>();
+            
+            services.AddAutoMapper(c=>
+            {
+                c.AddProfile<EntityDtoMappings>();
+                c.AddProfile<ViewModelDtoMappings>();
+            }, typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

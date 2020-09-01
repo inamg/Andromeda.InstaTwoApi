@@ -22,25 +22,25 @@ namespace Andromeda.InstaTwoApi.Api.Services
             _mapper = mapper;
         }
 
-        public async Task<IList<ImageDto>> GetImages(int pageNo = 1, int pageSize = 10)
+        public IList<ImageDto> GetImages(int pageNo = 1, int pageSize = 10)
         {
             Guard.ArgumentIsGreaterThan(() => pageSize, 0);
             Guard.ArgumentIsGreaterThan(() => pageNo, 0);
 
-            var images = await _unitOfWork.ImageRepository
+            var images =  _unitOfWork.ImageRepository
                 .GetAll()
-                .Skip(pageSize * pageNo)
+                .Skip(pageSize * (pageNo-1))
                 .Take(pageSize)
-                .ToListAsync();
+                .ToList();
 
             return _mapper.Map<IList<ImageDto>>(images);
         }
         
-        public async Task<ImageDto> GetImage(int id)
+        public ImageDto GetImage(int id)
         {
             Guard.ArgumentIsGreaterThan(() => id, 0);
 
-            var image = await _unitOfWork.ImageRepository.GetById(id);
+            var image =  _unitOfWork.ImageRepository.GetById(id);
             return image != null ? _mapper.Map<ImageDto>(image) : null;
         }
         
@@ -49,13 +49,13 @@ namespace Andromeda.InstaTwoApi.Api.Services
             return _unitOfWork.ImageRepository.Count();
         }
 
-        public async Task<int> SaveImage(IFormFile file, ImageDto image)
+        public  int SaveImage(IFormFile file, ImageDto image)
         {
             var imageEntity = _mapper.Map<Image>(image);
             
-           await _unitOfWork.ImageRepository.AddAsync(imageEntity);
+            _unitOfWork.ImageRepository.Add(imageEntity);
 
-            return await _unitOfWork.SaveAsync();
+            return _unitOfWork.Save();
         }
     }
 }

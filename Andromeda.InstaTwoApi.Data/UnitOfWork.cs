@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Andromeda.InstaTwoApi.Data.Repositories;
+﻿using Andromeda.InstaTwoApi.Data.Repositories;
 
 namespace Andromeda.InstaTwoApi.Data
 {
@@ -18,9 +17,9 @@ namespace Andromeda.InstaTwoApi.Data
             ImageRepository = new ImageRepository(_context);
         }
         
-        public async Task<int> SaveAsync()
+        public int Save()
         {
-           return await _context.SaveChangesAsync();
+           return _context.SaveChanges();
         }
 
         public void Dispose()
